@@ -1,0 +1,2413 @@
+\documentclass[12pt,aspectratio=169]{beamer}
+\usepackage[spanish,es-noquoting]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{multirow}
+%\usepackage[no-math]{fontspec}
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+%\usepackage{showframe}
+%\geometry{margin=5pt}%\setbeamersize{text margin left=10mm,text margin right=10mm,text margin top=10mm}
+\usepackage{fontawesome}
+
+\def\insertreturnsymbol{%
+	\faHome\space
+}
+\def\insertskipsymbol{%
+	\faArrowDown\space
+}
+\def\insertgotosymbol{%
+	\faThList\space
+}
+
+\usepackage{eso-pic}
+\newcommand{\AtTextUpperRight}[1]{%
+	\AtTextUpperLeft{%
+		\hspace*{\textwidth}%
+		#1%
+	}%
+}
+\newcommand{\AtTextLowerRight}[1]{%
+	\AtTextLowerLeft{%
+		\hspace*{\textwidth}%
+		#1%
+	}
+}
+
+
+\makeatletter
+\setbeamertemplate{frametitle continuation}{\gdef\beamer@frametitle{}}
+\makeatother
+
+
+\AtBeginDocument{
+	\renewcommand{\tablename}{Tabla}
+}
+\setbeamertemplate{caption}[numbered]
+%\pgfplotsset{compact=1.16}
+\decimalpoint
+%\usepackage{newtxtext}
+%\usepackage[varg]{newtxmath}
+%\newcommand\alphabet{abcdefghijklmnopqrstuvwxyz}
+%\newcommand\numbers{0123456789}
+\usepackage{makecell}
+ \usepackage{longtable}
+ \usepackage{pgfplotstable}
+ \usepackage{booktabs}
+\setlength{\parskip}{0.5em}
+\setlength\parindent{24pt}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\usepackage[apaciteclassic, numberedbib, tocbib]{apacite}
+\usepackage{usebib}
+\bibinput{une}
+
+\usepackage{xspace}
+\setbeamercolor{section in sidebar shaded}{fg=red}
+\setbeamercolor{subsection in sidebar shaded}{fg=orange}
+\setbeamercolor{subsubsection in sidebar shaded}{fg=gray}
+ 
+%\makeatletter
+%\setbeamertemplate{sidebar left}{\insertverticalnavigation{\beamer@sidebarwidth}}
+%\makeatother
+
+%\usepackage{tikz}
+\usepackage{tikz}
+
+\setbeamertemplate{button}{\tikz
+	\node[rectangle,text height=3mm,
+	inner xsep=2pt,
+	draw=structure!90,
+	fill=structure!80,
+	rounded corners=1pt]  {\small \insertbuttontext};}
+
+\usepackage{amsmath,pgfplots,gincltex}
+%%%%%%%%%%%%%%%%%%%%% pgplotstables longtables
+
+\pgfkeysifdefined{/pgfplots/table/output empty row/.@cmd}{
+	% upcoming releases offer this more convenient option:
+	\pgfplotstableset{
+		empty header/.style={
+			every head row/.style={output empty row},
+		}
+	}
+}{
+	% versions up to and including 1.5.1 need this:
+	\pgfplotstableset{
+		empty header/.style={
+			typeset cell/.append code={%
+				\ifnum\pgfplotstablerow=-1 %
+				\pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
+				\fi
+			}
+		}
+	}
+}
+%%%-----------------------------------------------
+\usetheme{Boadilla}
+
+%\usetheme[left,width=2cm]{Hannover}
+\newcommand{\N}{\mathds{N}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\CC}{\mathds{C}}
+\newcommand{\I}{\mathds{I}}
+\newcommand{\Q}{\mathds{Q}}
+\newcommand{\X}{\mathds{X}}
+
+\beamertemplatenavigationsymbolsempty
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left<#1\right>}
+\newcommand{\co}[1]{\left[#1\right]}
+\newcommand{\cc}[1]{\left(#1\right)}
+
+\usepackage{textcase}
+\newcommand{\autor}{Br. Mallqui Baños, Ricardo Michel\xspace}
+\newcommand{\asesor}{Mg. Marcelino Efraín Taipe Carbajal\xspace}
+\newcommand{\expert}{Dr. Pedro Huauya Quispe\xspace}
+\newcommand{\expertt}{Mg. Juarez Pulache José Carlos\xspace}
+\newcommand{\muestra}{35 estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngeniería 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH}\xspace}
+\newcommand{\poblacion}{900 estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngeniería 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH}\xspace}
+\newcommand{\lugar}{\NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngeniería 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} -- \NoCaseChange{A}yacucho\xspace}
+%VARIABLES%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\variablei}{{\color{red}Geometría fractal}\xspace}
+\newcommand{\variabled}{{\color{red}Compo\-si\-ción plástica tridimensional}\xspace}
+%DIMENSIONES
+%VI
+\newcommand{\titulo}{Geometría fractal en el desarrollo de la composición plástica tridimensional 
+	en estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngeniería 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} 2019\xspace}
+
+\newcommand{\dimi}{{Fractales naturales}\xspace}
+\newcommand{\dimii}{{Fractales abstractos}\xspace}
+%VD
+\newcommand{\dimd}{{\color{red}Variedad}\xspace}%movimiento
+\newcommand{\dimdd}{{\color{red}Unidad}\xspace}
+\newcommand{\dimddd}{{\color{red}Ritmo}\xspace}
+\newcommand{\dimdddd}{{\color{red}Equilibrio}\xspace}%Equilibrio
+\newcommand{\dimddddd}{{\color{red}Énfasis}\xspace}%Equilibrio
+
+
+\newcommand{\enfoque}{{Mixto}\xspace}
+\newcommand{\tipo}{{Aplicada}\xspace}
+\newcommand{\nivel}{{Explicativa}\xspace}
+\newcommand{\diseno}{{Preexperimental}\xspace}
+%%%%%%%%%%%INDICADORES%%%%%%%%%%%%%%%%%%
+%INDICADORES DE LA VARIABLE INDEPENDIENTE
+%Dimencion1
+\newcommand{\gb}{Fractales en la flora\xspace}
+\newcommand{\gbb}{Fractales en la fauna\xspace}
+\newcommand{\gbbb}{Fractales hídricos\xspace}
+\newcommand{\gbbbb}{Fractales terrestres\xspace}
+\newcommand{\gbbbbb}{Fractales admosféricos\xspace}
+%Dimencion2
+\newcommand{\gbbbbbb}{Fractales IFS\xspace}
+\newcommand{\gbbbbbbb}{Fractales complejos\xspace}
+\newcommand{\gbbbbbbbb}{Fractales aleatorios\xspace}
+\newcommand{\gbbbbbbbbb}{Fractales estadísticos\xspace}
+\newcommand{\gbbbbbbbbbb}{Fractales electromagnéticos\xspace}
+
+%INDICADORES DE LA VARIABLE DEPENDIENTE
+%secuencia de los elementos plásticos
+\newcommand{\fb}{Varía caracteristicas físicas\xspace}
+\newcommand{\fbb}{Muestra contrastes en los elementos\xspace}
+\newcommand{\fbbb}{Varía la distribución de los elementos\xspace}
+
+\newcommand{\fbbbb}{Unifica caracteristicas físicas\xspace}
+\newcommand{\fbbbbb}{Unifica elementos plásticos\xspace}
+\newcommand{\fbbbbbb}{Genera un sistema estructural\xspace}
+
+\newcommand{\fbbbbbbb}{Representa ritmo progresivo\xspace}
+\newcommand{\fbbbbbbbb}{Representa ritmo aleatorio regresivo\xspace}
+\newcommand{\fbbbbbbbbb}{Muestra ritmo regular (constante)\xspace}
+\newcommand{\fbbbbbbbbbb}{Representa ritmo mixto\xspace}
+
+\newcommand{\fbbbbbbbbbbb}{Equilibra centro de gravedad\xspace}
+\newcommand{\fbbbbbbbbbbbb}{Equilibra elementos plásticos\xspace}
+\newcommand{\fbbbbbbbbbbbbb}{Equilibra tensión\xspace}
+
+\newcommand{\fbbbbbbbbbbbbbb}{Manifesta punto focal en formas\xspace}
+\newcommand{\fbbbbbbbbbbbbbbb}{Representa punto focal en color\xspace}
+\newcommand{\fbbbbbbbbbbbbbbbb}{Expone punto focal en texturas\xspace}
+%%%%%%%%%%%%5
+
+
+
+
+\newcommand{\fbbbbbbbbbbbbbbbbb}{
+	Crear trabajos con tendencia la variabilidad de las secuencias 17\xspace}
+\newcommand{\fbbbbbbbbbbbbbbbbbb}{
+	Crea esculturas asociadas con los casos no típicos de la topología 18\xspace}
+\newcommand{\fbbbbbbbbbbbbbbbbbbb}{
+	Propiciar a la generación de nuevas técnicas para la elaboración de esculturas 19\xspace}
+\newcommand{\fbbbbbbbbbbbbbbbbbbbb}{
+	Muestra creatividad en la representacion y asociacion de los elementos plásticos 20\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+%\newcommand{\ce}{\centering}
+%%%%%%%%%%%%%%%%%%%PROBLEMA
+
+
+\newcommand{\problema}{¿En que medida la aplicación de la \MakeTextLowercase{\variablei} influye en la
+	\MakeTextLowercase{\variabled} de los estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngenieria 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} 2019?\xspace}
+
+\newcommand{\problemae}{¿De qué manera la aplicación de la \MakeTextLowercase{\variablei} mejorará la 
+	\MakeTextLowercase{\dimd} en la \MakeTextLowercase{\variabled} de los estudiantes?\xspace}
+
+\newcommand{\problemaee}{¿De qué manera la aplicación de la \MakeTextLowercase{\variablei} mejorará la 
+	\MakeTextLowercase{\dimdd} en la \MakeTextLowercase{\variabled} de los estudiantes?\xspace}
+
+\newcommand{\problemaeee}{¿De qué manera la aplicación de la \MakeTextLowercase{\variablei} mejorará el 
+	\MakeTextLowercase{\dimddd} en la \MakeTextLowercase{\variabled} de los estudiantes?\xspace}
+
+\newcommand{\problemaeeee}{¿De qué manera la aplicación de la \MakeTextLowercase{\variablei} desarrollará el 
+	\MakeTextLowercase{\dimdddd} en la \MakeTextLowercase{\variabled} de los estudiantes?\xspace}
+
+\newcommand{\problemaeeeee}{¿De qué manera la aplicación de la \MakeTextLowercase{\variablei} desarrollará 
+	el \MakeTextLowercase{\dimddddd} en la \MakeTextLowercase{\variabled} de los estudiantes?\xspace}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%OBJETIVO
+
+
+\newcommand{\objetivo}{Determinar las influencias de la aplicación de la \MakeTextLowercase{\variablei} 
+	en la \MakeTextLowercase{\variabled} de los estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngenieria 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} 2019\xspace}
+
+\newcommand{\objetivoe}{Justificar la mejora que genera la aplicación de la \MakeTextLowercase{\variablei} 
+	en la \MakeTextLowercase{\dimd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\objetivoee}{Analizar la mejora que genera  la aplicación de la \MakeTextLowercase{\variablei} 
+	en la \MakeTextLowercase{\dimdd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\objetivoeee}{Verificar los incrementos que genera la aplicación de la \MakeTextLowercase{\variablei} 
+	en el \MakeTextLowercase{\dimddd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\objetivoeeee}{Confirmar el desarrollo que genera la aplicación de la \MakeTextLowercase{\variablei} 
+	en el \MakeTextLowercase{\dimdddd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\objetivoeeeee}{Constatar el desarrollo que genera la aplicación de la \MakeTextLowercase{\variablei} 
+	en el \MakeTextLowercase{\dimddddd} de la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%HIPOTESIS
+
+\newcommand{\hipotesis}{La aplicación de la \MakeTextLowercase{\variablei} influye significativamente 
+	en el desarrollo de la \MakeTextLowercase{\variabled} de los estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngenieria 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} 2019\xspace}
+
+\newcommand{\hipotesise}{La aplicación de la \MakeTextLowercase{\variablei} mejora significativamente 
+	la \MakeTextLowercase{\dimd}  en la \MakeTextLowercase{\variabled}  de los estudiantes\xspace}
+
+\newcommand{\hipotesisee}{La aplicación de la \MakeTextLowercase{\variablei} mejora positivamente 
+	la \MakeTextLowercase{\dimdd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\hipotesiseee}{La aplicación de la \MakeTextLowercase{\variablei} mejora significantemente 
+	el \MakeTextLowercase{\dimddd} en la \MakeTextLowercase{\variabled}  de los estudiantes\xspace}
+
+\newcommand{\hipotesiseeee}{La aplicación de la \MakeTextLowercase{\variablei} desarrolla significativamente 
+	el \MakeTextLowercase{\dimdddd} en la \MakeTextLowercase{\variabled} tridimensional de los estudiantes\xspace}
+
+\newcommand{\hipotesiseeeee}{La aplicación de la \MakeTextLowercase{\variablei} desarrolla significativamente 
+	el \MakeTextLowercase{\dimddddd} en la \MakeTextLowercase{\variabled} tridimensional de los estudiantes\xspace}
+
+%___________
+\newcommand{\hipotesisn}{La aplicación de la \MakeTextLowercase{\variablei} no  influye significativamente 
+	en el desarrollo de la \MakeTextLowercase{\variabled} de los estudiantes de la \NoCaseChange{E}scuela de \NoCaseChange{F}ormación
+	\NoCaseChange{P}rofesional de \NoCaseChange{I}ngenieria 
+	\NoCaseChange{C}ivil \NoCaseChange{UNSCH} 2019\xspace}
+
+\newcommand{\hipotesisen}{La aplicación de la \MakeTextLowercase{\variablei} no  mejora significativamente 
+	la \MakeTextLowercase{\dimd}  en la \MakeTextLowercase{\variabled}  de los estudiantes\xspace}
+
+\newcommand{\hipotesiseen}{La aplicación de la \MakeTextLowercase{\variablei} no mejora positivamente 
+	la relación entre la \MakeTextLowercase{\dimdd} en la \MakeTextLowercase{\variabled} de los estudiantes\xspace}
+
+\newcommand{\hipotesiseeen}{La aplicación de la \MakeTextLowercase{\variablei} no mejora significantemente 
+	el \MakeTextLowercase{\dimddd} en la \MakeTextLowercase{\variabled}  de los estudiantes\xspace}
+
+\newcommand{\hipotesiseeeen}{La aplicación de la \MakeTextLowercase{\variablei} no desarrolla significativamente 
+	el \MakeTextLowercase{\dimdddd} en la \MakeTextLowercase{\variabled} tridimensional de los estudiantes\xspace}
+
+\newcommand{\hipotesiseeeeen}{La aplicación de la \MakeTextLowercase{\variablei} no  desarrolla significativamente 
+	el \MakeTextLowercase{\dimddddd} en la \MakeTextLowercase{\variabled} tridimensional de los estudiantes\xspace}
+
+
+
+
+
+\begin{document}
+	
+	
+\begin{frame}{}
+\begin{block}{}\centering
+	\textbf{\large\titulo}
+\end{block}%\textbf{\large\titulo}
+\centering
+\lugar\\
+\autor\\
+
+\begin{center}
+\includegraphics[width=2cm]{logo}	%\movie[width=4.5cm,height=4.5cm,autostart,repeat]{A movie}{ff777.mov}
+%	\movie[width=6cm,height=4.5cm,autostart,repeat]{A movie}{ff7f.mov}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{}
+
+\hyperlink{www}{\beamerreturnbutton{Capitulo I: Planteamiento}}
+\hypertarget{rr}{}
+
+\hyperlink{marcoteorico}{\beamerreturnbutton{Capitulo II: Marco teórico}}
+
+\hyperlink{marcometodologico}{\beamerreturnbutton{Capitulo III: Marco metodológico}}
+
+\hyperlink{resultados}{\beamerreturnbutton{Capitulo IV: Resultados}}
+
+\hyperlink{concluciones}{\beamerreturnbutton{Capitulo V: Conclusiones y recomendaciones}}
+%\tableofcontents
+\end{frame}
+
+\begin{frame}[allowframebreaks]{}
+\hyperlink{www1}{\beamergotobutton{Secci\'on 1: Descripción del problema}}
+	\hypertarget{www}{}
+
+\hyperlink{www2}{\beamergotobutton{Secci\'on 2: Problemas general y específicos}}
+
+\hyperlink{www3}{\beamergotobutton{Secci\'on 3: Justificación}}
+
+\hyperlink{www4}{\beamergotobutton{Secci\'on 4: Limitaciónes en la investigación}}
+
+\hyperlink{www5}{\beamergotobutton{Secci\'on 5: Antecedentes de la investigación}}
+
+\hyperlink{www6}{\beamergotobutton{Secci\'on 6: Objetivos general y específicos}}
+
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			%			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\section{Planteamiento}
+\begin{frame}[allowframebreaks]{Descripción}
+\hypertarget{www1}{}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+
+Composición plástica (unidad variedad equilibrio ...) tridimensional deficiente implicado por el \textbf{uso inadecuado de patrones o modelos estructurales}
+en la composición plástica tridimensional, es decir trabajos con elementos plásticos (color linea textura...) inadecuadamente distribuidos
+
+
+
+Se pretende \textbf{subsanar} este problema con el uso de la \textbf{geometría fractal} (Conjunto de patrones estructurales que generan objetos de tipo fractal), que ayuda a \textbf{entender mejor el comportamiento en la distribución de los elementos plásticos} de un objeto fractal, lo cual en conjunto se oberva agradabele para las personas en general.
+
+
+\end{frame}
+
+\subsection{Problema general y específicos}
+\begin{frame}{Problema general y específicos}
+\hypertarget{www2}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+%\problema\\
+¿En que medida la aplicación de la \MakeTextLowercase{\textbf{\variablei}} influye en la \MakeTextLowercase{\textbf{\variabled}} de estudiantes de la \lugar?.\vspace{1cm}
+\begin{tabular}{ccccc}
+	\multirow{5}{*}{\makecell[{{M{2cm}}}]{¿En que medida la aplicación de la \MakeTextLowercase{\variablei}}}&\multirow{5}{*}{influye en}&\multirow{1}{*}{\dimd}&\multirow{5}{*}{de}&\multirow{5}{*}{\makecell[{{M{5cm}}}]{la \MakeTextLowercase{\variabled} los estudiantes?}}\\
+	&&\multirow{1}{*}{\dimdd}&&\\
+	&&\multirow{1}{*}{\dimddd}&&\\
+	&&\multirow{1}{*}{\dimdddd}&&\\
+	&&\multirow{1}{*}{\dimddddd}&&\\
+\end{tabular}
+\end{frame}
+
+
+\subsection{Justificación}
+\begin{frame}{Justificación}
+\hypertarget{www3}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{fggww}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{itemize}
+\item  {\textbf{Justificación artística}} El presente trabajo de investigación se realiza debido a la necesidad
+\textbf{promover en los artistas plásticos la utilización de la geometría fractal} en la composición
+plástica tridimensional con el objetivo de generar trabajos artísticos
+de acuerdo a los principios compositivos.
+
+\item {\textbf{Justificación educativa}} El objetivo de la investigación en el aspecto educativo es la de \textbf{implementar}
+esta práctica de reproducción plástica, en los \textbf{ planes de estudios},
+y hacerle ineludible, su uso por parte de los estudiantes, generando
+trabajos artísticos, estructuralmente agradables.
+
+\item {\textbf{Justificación Legal}} El artículo $2^{\circ}$, expresa que toda persona tiene derecho a
+la \textbf{libertad de creación intelectual, artística, técnica y científica},
+así como a la propiedad sobre dichas creaciones y a su producto.
+El articulo $18^{\circ}$ avala que la educación universitaria tiene
+como fines la formación profesional, la difusión cultural, la creación
+intelectual y artística y la investigación científica y tecnológica.
+\end{itemize}
+\end{frame}
+
+\subsection{Limitación}
+
+\begin{frame}{Limitaciónes}
+\hypertarget{www4}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Los obstáculos que se encontraron en la realización del trabajo fueron,
+los \textbf{escasos referentes bibliográficos} sobre todo de los antecedentes
+de la investigación. Además de la accesibilidad a una cantidad mayor
+de muestra. No hubo \textbf{apoyo} alguno por parte de las instituciones de
+educación artística. La \textbf{disponibilidad de tiempo} suficiente y la \textbf{digitalización de modelos
+ejemplo} necesarios para la aplicación de la geometra fractal en la
+producción plástica.
+\end{frame}
+\subsection{Antecedentes}
+
+\begin{frame}[allowframebreaks]{Antecedentes}
+\hypertarget{www5}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{tt}{\beamerskipbutton{}}
+			\hyperlink{www5}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\citeA{internacional1} con su tesis:  ``\usebibentry{internacional1}{title}''
+
+
+\citeA{internacional2} con su tesis:  ``\usebibentry{internacional2}{title}''
+
+
+\cite{internacional3} con su tesis:  ``\usebibentry{internacional3}{title}''
+
+
+\citeA{nacional1} con su tesis:  ``\usebibentry{nacional1}{title}''
+
+\end{frame}
+\begin{frame}
+\hypertarget{tt}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\citeA{nacional2} con su tesis:  ``\usebibentry{nacional2}{title}''
+
+
+\cite{nacional3} con su tesis:  ``\usebibentry{nacional3}{title}''
+
+
+\citeA{regional1} con su tesis:  ``\usebibentry{regional1}{title}''
+
+
+\citeA{regional2} con su tesis:  ``\usebibentry{regional2}{title}''
+
+
+\cite{regional3} con su tesis:  ``\usebibentry{regional3}{title}''
+\end{frame}
+
+\subsection{Objetivos}
+\begin{frame}{Objetivos general y específicos}
+\hypertarget{www6}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{www}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+%\objetivo\\
+Determinar la influencia de la \MakeTextLowercase{\textbf{\variablei}} en la \MakeTextLowercase{\textbf{\variabled}} de estudiantes de la \lugar.\vspace{1cm}
+\begin{tabular}{cc>{\bfseries}ccc}
+	\multirow{5}{*}{\makecell[{{M{2cm}}}]{Determinar la influencia de la \MakeTextLowercase{\variablei}}}&\multirow{5}{*}{en}&\multirow{1}{*}{\dimd}&\multirow{5}{*}{de}&\multirow{5}{*}{\makecell[{{M{5cm}}}]{la \MakeTextLowercase{\variabled} los estudiantes}}\\
+	&&\multirow{1}{*}{\dimdd}&&\\
+	&&\multirow{1}{*}{\dimddd}&&\\
+	&&\multirow{1}{*}{\dimdddd}&&\\
+	&&\multirow{1}{*}{\dimddddd}&&\\
+\end{tabular}
+
+\end{frame}
+
+
+\section{Marco teórico}
+\begin{frame}[allowframebreaks]{}
+\hyperlink{1}{\beamergotobutton{Secci\'on 1: Contexto}}
+\hypertarget{marcoteorico}{}
+
+\hyperlink{2}{\beamergotobutton{Secci\'on 2: \variablei}}
+
+\hyperlink{3}{\beamergotobutton{Secci\'on 3: \variabled}}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{1}{\beamerskipbutton{}}
+%			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\begin{frame}
+\hypertarget{1}{}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{2}{\beamerskipbutton{}}
+			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+
+
+La \lugar, donde la \textbf{composicion es mas intuitiva} y con \textbf{poca valoracion a las recurrecias o la distribucion de los elementos plásticos} en una composicion plástica tridimensional. Concentrándonse solo en la \textbf{represetancion simbolica} mas no comositivamente. Generándose \textbf{un arte imcompleto}. Hay casos excepcionales que desarrollaron cualidades artisticas. El objetivo es \textbf{homogenizar y extender}, la aprehención y desarrollo del \textbf{uso de la geometria fractal sobre sus composiciones} en la comunidad artística.
+\end{frame}
+
+
+\subsection{\variablei}
+\begin{frame}{\variablei}
+\hypertarget{2}{}
+\begin{enumerate}
+    \item \dimi
+    \begin{enumerate}
+\item \gb
+\item \gbb
+\item \gbbb
+\item \gbbbb
+\item \gbbbbb
+    \end{enumerate}
+    \item \dimii
+    
+    \begin{enumerate}
+    	\item \gbbbbbb
+    	\item \gbbbbbbb
+    	\item \gbbbbbbbb
+    	\item \gbbbbbbbbb
+    	\item \gbbbbbbbbbb
+    \end{enumerate}
+\end{enumerate}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{3}{\beamerskipbutton{}}
+			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\subsection{\variabled}
+\begin{frame}[allowframebreaks]{\variabled}
+\hypertarget{3}{}
+\begin{itemize}
+	\item \dimd
+	\begin{itemize}
+		\item \fb
+		\item \fbb
+		\item \fbb
+	\end{itemize}
+	\item	\dimdd
+	 	\begin{itemize}
+	 	\item \fbb
+	 	\item \fbbb
+	 	\item \fbbbb
+	 \end{itemize}
+ 
+	\item	\dimddd
+		\begin{itemize}
+		\item \fbb
+		\item \fbbb
+		\item \fbbbb
+		\item \fbbbb
+	\end{itemize}\end{itemize}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{3-}{\beamerskipbutton{}}
+			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+
+	\begin{frame}
+	\hypertarget{3-}{}
+\begin{itemize}
+	
+\item \dimdddd
+	\begin{itemize}
+	\item \fbb
+	\item \fbbb
+	\item \fbbbb
+\end{itemize}
+\item \dimddddd
+	\begin{itemize}
+	\item \fbb
+	\item \fbbb
+	\item \fbbbb
+\end{itemize}
+\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcoteorico}{\beamerskipbutton{}}
+			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\section{Marco metodológico}
+\begin{frame}[allowframebreaks]{}
+\hyperlink{marcometodologico1}{\beamergotobutton{Secci\'on 1: Hipótesis}}
+\hypertarget{marcometodologico}{}
+
+\hyperlink{marcometodologico2}{\beamergotobutton{Secci\'on 2: Variables}}
+ 
+\hyperlink{marcometodologico3}{\beamergotobutton{Secci\'on 3: Metodología}}
+
+\hyperlink{marcometodologico4}{\beamergotobutton{Secci\'on 4: Métodos de investigación}}
+
+\hyperlink{marcometodologico5}{\beamergotobutton{Secci\'on 5: Población y muestra}}
+
+\hyperlink{marcometodologico6}{\beamergotobutton{Secci\'on 6: Técnicas e instrumentos de investigación}}
+
+\hyperlink{marcometodologico7}{\beamergotobutton{Secci\'on : Métodos de análisis de datos}}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcometodologico1}{\beamerskipbutton{}}
+			%			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\subsection{Hipótesis}
+\begin{frame}{Hipótesis general y específicos}
+\hypertarget{marcometodologico1}{} 
+%\hipotesis\\
+La aplicación de la \MakeTextLowercase{\textbf{\variablei}} influye significativamente  en la \MakeTextLowercase{\textbf{\variabled}} de estudiantes de la \lugar?.\vspace{1cm}
+\begin{tabular}{cc>{\bfseries}ccc}
+	\multirow{5}{*}{\makecell[{{M{2cm}}}]{La aplicación de la \MakeTextLowercase{\variablei}}}&\multirow{5}{*}{\makecell[{{M{2cm}}}]{influye significativamente en}}&\multirow{1}{*}{\dimd}&\multirow{5}{*}{de la}&\multirow{5}{*}{\makecell[{{M{5cm}}}]{\MakeTextLowercase{\variabled} los estudiantes?}}\\
+	&&\multirow{1}{*}{\dimdd}&&\\
+	&&\multirow{1}{*}{\dimddd}&&\\
+	&&\multirow{1}{*}{\dimdddd}&&\\
+	&&\multirow{1}{*}{\dimddddd}&&\\
+\end{tabular}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcometodologico2}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\subsection{Variables}
+\begin{frame}[allowframebreaks]{Variables y definición conceptual}
+\hypertarget{marcometodologico2}{}
+\begin{enumerate}
+	\item \textbf{Variable Independiente} (\variablei)
+	\item \textbf{Variable Dependiente} (\variabled) 
+\end{enumerate}
+
+\begin{itemize}
+	\item \textbf{Variable Independiente (}\textbf{\variablei}\textbf{):}
+	La geometría fractal ofrece un modelo alternativo que busca
+	una regularidad en las relaciones entre un objeto y sus partes a diferentes
+	escalas. Esta forma de regularidad no precisa el encorsetamiento del
+	objeto en otras formas geométricas que, aunque elementales, no dejan
+	de ser externas al mismo, sino que busca la lógica interna del propio
+	objeto mediante relaciones intrínsecas entre sus elementos constitutivos
+	cuando estos se examinan a diferentes escalas. La geometría fractal
+	busca y estudia los aspectos geométricos que son invariantes con el
+	cambio de escala. %\citeA{ghyka1977estetica}.
+	
+	\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{marcometodologico3w_7}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+\begin{frame}
+\hypertarget{marcometodologico3w_7}{}
+	\begin{itemize}
+	\item \textbf{Variable Dependiente (}\textbf{\variabled}\textbf{):} La
+	composición plástica tridimensional se refiere a las
+	interminables posibilidades que brindan la manipulación creativa de
+	los diversos elementos plásticos. Estos recursos se enriquecen con
+	las formas y las figuras geométricas, que al combinarlos de manera
+	armónica se transforman con el toque personal y posibilitan innumerables
+	formas de expresión artística. 
+\end{itemize}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcometodologico3wr}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+
+\begin{frame}{Operacionalización de variables}
+\hypertarget{marcometodologico3wr}{}
+\begin{table}[ht!]\footnotesize
+	\caption{Definición operacional de la variable independiente}
+	\label{first}\begin{tabular}{ccccccc} 
+		\Xhline{1pt} 		\textbf{VD}& \textbf{D} & \textbf{Ind 			icadores}&\textbf{Items}&\textbf{Escala}& \textbf{Valores} \\ 		\hline 		\multirow{10}{*}{\rotatebox[origin=c]{90}{\variablei}} 	
+		&\multirow{5}{*}{\makecell{Fractales\\ naturales}} %\dimi	
+		& \multirow{1}{*}{\fb}&\multirow{1}{*}{P1--P2} 		&\multirow{10}{*}{\rotatebox[origin=c]{90}{\makecell{Cuantitativa\\ continua}}} 		&\multirow{10}{*}{\rotatebox[origin=c]{90}{\makecell{Valoración cuantitaitva \\ 0 a 20}}} 		\\\cline{3-4} 	
+		&&\multirow{1}*{\gbb}&
+		\multirow{1}{*}{C3--C4}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbb}&
+		\multirow{1}{*}{C5}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbb}&
+		\multirow{1}{*}{C6--C7}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbbb}&
+		\multirow{1}{*}{C8}&\\\cline{2-4}
+		&\multirow{5}*{\makecell{Fractales\\ abstractos}} %\dimii 
+		&\multirow{1}*{\gbbbbbb}&
+		\multirow{1}{*}{C9--C10}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbbbbb}&
+		\multirow{1}{*}{C11}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbbbbbb}&
+		\multirow{1}{*}{C12--C13}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbbbbbbb}&
+		\multirow{1}{*}{C14--C15}&\\\cline{3-4}
+		&&\multirow{1}*{\gbbbbbbbbbb}&
+		\multirow{1}{*}{C16--C17}&\\\cline{3-4}
+		\hline 
+	\end{tabular}
+\end{table}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{marcometodologico3rww1}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\begin{frame}
+\hypertarget{marcometodologico3rww1}{}
+\begin{table}[ht!]\footnotesize
+	\renewcommand\tabcolsep{0.15cm}\renewcommand\arraystretch{0.9}
+	\caption{Definición operacional de la variable dependiente}
+	\label{second}
+	\begin{tabular}{cccccc} 		\Xhline{1pt} 		\textbf{VD}& \textbf{D} & \textbf{Ind 			icadores}&\textbf{Items}&\textbf{Escala}& \textbf{Valores} \\ 		\hline 		\multirow{16}{*}{\rotatebox[origin=c]{90}{\variabled}} 	
+		&\multirow{3}{*}{\dimd} 	
+		& \multirow{1}{*}{\fb}&\multirow{1}{*}{P1--P2} 		&\multirow{16}{*}{\rotatebox[origin=c]{90}{\makecell{Cuantitativa continua}}} 		&\multirow{16}{*}{\rotatebox[origin=c]{90}{\makecell{Valoración cuantitaitva de 0 a 20}}} 		\\\cline{3-4} 	
+		&&\multirow{1}{*}{\fbb}&\multirow{1}{*}{P3--P4}&& 		\\\cline{3-4} 
+		&&\multirow{1}{*}{\fbbb}&\multirow{1}{*}{P5}&&\\\cline{2-4} 	
+		&\multirow{3}{*}{\dimdd} 		& \multirow{1}{*}{\fbbbb}&\multirow{1}{*}{P6--P7}&& 		\\\cline{3-4} 	
+		&&\multirow{1}{*}{\fbbbbb}&\multirow{1}{*}{P8}&& 		\\\cline{3-4}
+		&&\multirow{1}{*}{\fbbbbbb}&\multirow{1}{*}{P9--P10}&& 		\\\cline{2-4} 	
+		&\multirow{4}{*}{\dimddd} 	
+		&\multirow{1}{*}{\fbbbbbbb}&\multirow{1}{*}{P11--P12}&&\\\cline{3-4} 
+		&&\multirow{1}{*}{\fbbbbbbbb}&\multirow{1}{*}{P13}&&\\\cline{3-4} 
+		&&\multirow{1}{*}{\fbbbbbbbbb}&\multirow{1}{*}{P14--P15}&&\\\cline{3-4} 
+		&&\multirow{1}{*}{\fbbbbbbbbbb}&\multirow{1}{*}{P16--P17}&&\\\cline{2-4} 	
+		&\multirow{3}{*}{\dimdddd} 	
+		& \multirow{1}{*}{\fbbbbbbbbbbb}&\multirow{1}{*}{P18--P19}&&\\\cline{3-4}
+		&&\multirow{1}{*}{\fbbbbbbbbbbbb}&\multirow{1}{*}{P20}&&\\\cline{3-4} &&\multirow{1}{*}{\fbbbbbbbbbbbbb}&\multirow{1}{*}{P21--P22}&&\\ \cline{2-4} 	
+		&\multirow{3}{*}{\dimddddd}
+		&\multirow{1}{*}{\fbbbbbbbbbbbbbb}&\multirow{1}{*}{P23--P24}&&\\\cline{3-4} 
+		&&\multirow{1}{*}{\fbbbbbbbbbbbbbbb}&\multirow{1}{*}{P5}&&\\\cline{3-4} 	
+		&&\multirow{1}{*}{\fbbbbbbbbbbbbbbbb}&\multirow{1}{*}{P26--P27}&&\\		\Xhline{1pt}	\end{tabular}
+\end{table}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcometodologicoww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\section{Metodología}
+\begin{frame}{Metodología}
+\hypertarget{marcometodologico3}{}
+
+\textbf{Tipo de estudio}: Explicativa experimental, porque
+se busca la causa y efecto en cada una de las variables de estudio.
+
+
+\textbf{Diseño}: Preexperimental de un mismo grupo
+de trabajo con pre y posprueba en series temporales, porque se tomó un solo grupo experimental. Cuyo esquema de referencia es:
+\vspace{-.45cm}
+\begin{center}%\renewcommand\arraystretch{.9}
+	\begin{tabular}{cccccc}
+		GE: & $X_{1}$  & $\cdots$  & $O_{1}$ &  & \tabularnewline
+		&  &  & $X_{0}$ & $\cdots$  & $O_{2}.$\tabularnewline
+		& $X_{2}$  & $\cdots$  & $O_{3}$ &  & \tabularnewline
+		&  &  & $X_{0}$ & $\cdots$  & $O_{4}.$\tabularnewline
+		& $X_{3}$  & $\cdots$  & $O_{5}$ &  & \tabularnewline
+		&  &  & $X_{0}$ & $\cdots$  & $O_{6}.$\tabularnewline
+	\end{tabular}
+\end{center}
+\vspace{-.45cm}
+Donde $GE$ (grupo experimental), $X_{1}$ a $X_{3}$ son variables
+de interés, $O_{1}$ a $O_{6}$ son
+las observaciones realizadas en cada serie de tiempo. $X_{0}$ significa
+la no aplicación del experimento pero si el tratamiento normal anterior.
+%\textbf{Tipo de investigación}: \tipo	
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{marcometodologicowww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+
+\section{{Metodos de investigación}}
+\begin{frame}{Metodos de investigación}
+\hypertarget{marcometodologico4}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{marcometodologicoww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{itemize}
+\item Método experimental
+\item Método hipotético deductivo
+\item Método análitico
+\item Método estadístico
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\subsection{Poblacion, muestra y muestreo}
+\begin{frame}{Poblacion, muestra y muestreo}
+\hypertarget{marcometodologico5}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{marcometodologicoww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\textbf{\emph{La población}}, estuvo constituida por 963 estudiantes, de ambos
+sexos, de la \lugar matriculados en el semestre par, del año 2019.
+
+En la presente investigación \textbf{\emph{la muestra}} fue {no probabilística
+	e intencional} compuesta por \muestra.
+
+Fue {\textbf{\emph{no probabilístico e intencional}}}, porque los grupos ya están
+formados con los estudiantes de la serie 300 en la \lugar
+\end{frame}
+
+\subsection{Tecnicas e instrumentos de investigacion}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+conf1 <-read.xlsx(xlsxFile="levene.xlsx",sheet=3,cols=c(1:33),rows=c(2:39),colNames=TRUE)
+write.table(conf1, "conff1.dat", quote=F, sep=" ", row.names=F)
+@
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+conf3<-read.xlsx(xlsxFile="levene.xlsx",sheet=3,cols=c(1:16),rows=c(80:117),colNames=TRUE)
+write.table(conf3, "conff3.dat", quote=F, sep=" ", row.names=F)
+@
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+conf2 <-read.xlsx(xlsxFile="levene.xlsx",sheet=3,cols=c(1:23),rows=c(41:78),colNames=TRUE)
+write.table(conf2, "conff2.dat", quote=F, sep=" ", row.names=F)
+promedio <-read.xlsx(xlsxFile="levene.xlsx",sheet=3,cols=c(42:43),rows=c(1:2),colNames=TRUE)
+@
+
+\begin{frame}{Tecnicas e instrumentos de investigacion}
+\hypertarget{marcometodologico6}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{tttww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{itemize}
+\item Tecnicas
+\begin{itemize}
+	\item Observación
+	\item Prueba pedagógica
+	\item Experimental
+\end{itemize}
+
+\item Instrumentos
+
+\begin{itemize}
+	\item Ficha de observación
+	\item Lista de cotejo
+	\item Ficha de opinión
+	\item Modulos de experimentación
+\end{itemize}	
+\end{itemize}
+\end{frame}
+
+\begin{frame}%{Validación y confiabilidad de instrumentos}
+\hypertarget{tttww}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{tttwww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{itemize}
+	\item Validación
+	
+	\begin{table}[ht!]
+		\caption{La validez de los instrumentos}
+		\begin{tabular}{ccc}
+			\toprule 
+			Expertos  & Validación  & Situación \tabularnewline
+			\midrule 
+			\asesor  & 0,8 & Aceptable \tabularnewline
+			\expert & 0,84  & Aceptable\tabularnewline
+			\expertt & 0,84 & Aceptable \tabularnewline
+			\midrule 
+			Promedio  & 0,83 (83\%)  & Aceptable \tabularnewline
+			\bottomrule
+		\end{tabular}\label{expertos1}
+	\end{table}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\hypertarget{tttwww}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{marcometodologicoww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{itemize}
+	\item Confiabilidad
+
+\begin{table}[ht!]\footnotesize
+	\global\long\def\arraystretch{1.1}
+	\caption{Confiabilidad de los instrumentos mediante el coeficiente de {Pearson}
+		y la corrección de {Spearman} {Brow}}
+	\begin{tabular}{ccc}
+		\toprule 
+		Instrumentos  & Coeficiente  & Interpretación \tabularnewline
+		\midrule 
+		Ficha de observación (variable independiente)  & \Sexpr{conf2$C1[37]}  & Elevada \\ 
+		Ficha de observación (variable dependiente)  & \Sexpr{conf1$P1[37]} & Elevada  \\ 
+		Ficha de opinión  & \Sexpr{conf3$O1[37]} & Aceptable \\
+		\midrule 
+		PROMEDIO  & $\Sexpr{promedio$a[1]}$ ($\Sexpr{promedio$b[1]}\%$)  & Elevada \tabularnewline
+		\bottomrule
+	\end{tabular}\label{coef}
+\end{table}
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Metodos y análisis de datos}
+\begin{frame}{Metodos y análisis de datos}
+\hypertarget{marcometodologico7}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{marcometodologicoww}{\beamerskipbutton{}}
+			\hyperlink{marcometodologico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\textbf{\emph{Análisis descriptivo}}
+
+A nivel descriptivo se utilizó los estadígrafos, particulares de la
+estadística descriptiva tales como las\textbf{ medidas de tendencia central}
+(media, mediana, moda), las \textbf{mediadas de dispersión} (desviación estándar,
+varianza, coeficiente de variación) \textbf{medidas de posición} (deciles,
+cuartiles, percentiles). 
+
+\textbf{\emph{Análisis inferencial}}
+
+A nivel {inferencial} se realizó la prueba de \textbf{normalidad} y la
+de {\textbf{homocedasticidad}}, con el objetivo de elegir entre una prueba
+{paramétrica} o {no paramétrica}, en las pruebas de hipótesis.
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Resultados}
+
+
+\section{Marco teórico}
+\begin{frame}[allowframebreaks]{}
+\hyperlink{opinion}{\beamergotobutton{Secci\'on 1: Ficha de opinión}}
+\hypertarget{resultados}{}
+
+\hyperlink{independiente}{\beamergotobutton{Secci\'on 2: Variable independiente}}
+
+\hyperlink{dependiente}{\beamergotobutton{Secci\'on 3: Variable dependiente}}
+%\begin{itemize}
+%\item \dimd
+%\item \dimdd
+%\item \dimddd
+%\item \dimdddd
+%\item \dimddddd
+%\item \dimdddddd
+%\end{itemize}
+
+\hyperlink{inferencial}{\beamergotobutton{Secci\'on 4: Prueba de hipótesis}}
+%\begin{itemize}
+%	\item \dimd
+%	\item \dimdd
+%	\item \dimddd
+%	\item \dimdddd
+%	\item \dimddddd
+%	\item \dimdddddd
+%\end{itemize}
+
+\hyperlink{discuciones}{\beamergotobutton{Secci\'on 5: Discusión de resultados}}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			%			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+<<mychunk2,echo=F>>=
+library(readxl)
+w1 <-read_excel("levene.xlsx",sheet=8,range="A1:B36",col_names=TRUE)
+w2 <-read_excel("levene.xlsx",sheet=8,range="C1:D36",col_names=TRUE)
+w3 <-read_excel("levene.xlsx",sheet=8,range="E1:F36",col_names=TRUE)
+w4 <-read_excel("levene.xlsx",sheet=8,range="G1:H36",col_names=TRUE)
+w5 <-read_excel("levene.xlsx",sheet=8,range="I1:J36",col_names=TRUE)
+w6 <-read_excel("levene.xlsx",sheet=8,range="K1:L36",col_names=TRUE)
+@
+\subsection{{Ficha de opinión}}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+opinion1 <-read.xlsx(xlsxFile="levene.xlsx",
+sheet=10,cols=c(20:28),rows=c(3:6),colNames=FALSE)
+write.table(opinion1, "opinionn1.dat", quote=F, sep=" ", row.names=F)
+@
+\begin{frame}
+\hypertarget{opinion}{}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{table}[ht!]\footnotesize
+	\caption{Descriptivo de la ficha de opinión}
+	\label{r2}
+	\pgfplotstabletypeset[column type=r,every head row/.style={output empty row,before row={\toprule
+			& \multicolumn{2}{c}{Motivador}&\multicolumn{2}{c}{Formativa} &  \multicolumn{2}{c}{Reforzador}&\multicolumn{2}{c}{Utilidad de la geometría fractal} \\ \midrule  Escala & $n$  & \% & $n$  & \%& $n$& \% & $n$ &\% \\},
+		after row=\midrule,},
+	every last row/.style={output empty row,before row={\midrule},after row=\bottomrule,output empty row,after row={\toprule \multicolumn{5}{l}{}\\\multicolumn{5}{l}{}}},columns/X1/.style={string type}]{opinionn1.dat}%
+\end{table}
+\end{frame}
+
+%\begin{comment}[allowframebreaks]
+%\hypertarget{f2}{}
+%\AddToShipoutPictureFG*{%
+%	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			%			\hyperlink{1}{\beamerskipbutton{}}
+%			\hyperlink{resultados}{\beamergotobutton{}}
+%			\hyperlink{rr}{\beamerreturnbutton{}}
+%	}}
+%}
+%
+%En la Tabla \ref{r2} se observa, que la \MakeTextLowercase{\variablei},
+%si es motivador por el \Sexpr{round(opinion1$X3[1],2)}\%, a veces es motivador por el \Sexpr{round(opinion1$X3[2],2)}\%
+%y no es motivador por el \Sexpr{round(opinion1$X3[3],2)}\% de estudiantes. Por lo tanto, la
+%\MakeTextLowercase{\variablei}, despierta curiosidad de aprendizaje
+%de los estudiantes y genera interés de aprendizaje en los estudiantes.
+%
+%En la Tabla \ref{r2} se observa, que la \MakeTextLowercase{\variablei},
+%si es formativa por el \Sexpr{round(opinion1$X5[1],2)}\%, a veces es formativa por el \Sexpr{round(opinion1$X5[2],2)}\%
+%y no es formativa por el \Sexpr{round(opinion1$X5[3],2)}\% de estudiantes. Por lo tanto, la
+%\MakeTextLowercase{\variablei}, promueve participación activa
+%de los estudiantes, facilita el aprendizaje significativo de la matemática,
+%permite comprender de manera concreta la matemática, facilita la solución
+%rápida de los problemas de la composición, permite contextualizar la matemática
+%en su contexto sociocultural del estudiante.
+%
+%En la Tabla \ref{r2} se observa, que la \MakeTextLowercase{\variablei},
+%si es reforzador por el \Sexpr{round(opinion1$X7[1],2)}\%, a veces es reforzador por el \Sexpr{round(opinion1$X7[2],2)}\%
+%y no es reforzador por el \Sexpr{round(opinion1$X7[3],2)}\% de estudiantes. Por lo tanto, la
+%\MakeTextLowercase{\variablei}, promueve autoevaluación de aprendizajes
+%de los estudiantes, facilita mayor socialización de aprendizaje de
+%los estudiantes, genera reflexión de logros y dificultades de aprendizaje.
+%
+%Finalmente en la Tabla \ref{r2} se observa, que la \MakeTextLowercase{\variablei}
+%es considerada pertinente por el \Sexpr{round(opinion1$X9[1],2)}\%, a veces es pertinente por
+%el \Sexpr{round(opinion1$X9[2],2)}\% y no es pertinente por el \Sexpr{round(opinion1$X9[3],2)}\% de estudiantes. Es decir,
+%la \MakeTextLowercase{\variablei} es motivador, formativa y reforzador.
+%
+%\end{comment}
+
+\subsection{{Variable independiente}}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+opinion2 <-read.xlsx(xlsxFile="levene.xlsx",
+sheet=4,cols=c(24:30),rows=c(4:8),colNames=FALSE)
+write.table(opinion2, "opinionn2.dat", quote=F, sep=" ", row.names=F)
+@
+\begin{frame}{{Resultados de la variable independiente}}
+\hypertarget{independiente}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\begin{table}[ht!]\footnotesize
+\caption{Descriptivo de la variable independiente}
+\label{rr3}
+\pgfplotstabletypeset[column type=r,every head row/.style={output empty row,before row={\toprule
+		& \multicolumn{2}{c}{Fractales naturales} & \multicolumn{2}{c}{Fractales abstractos} &  \multicolumn{2}{c}{Geometría fractal} \\ \midrule  Escala & $n$  & \% & $n$  & \%& $n$& \%\\},
+	after row=\midrule,},
+every last row/.style={output empty row,before row={\midrule},after row=\bottomrule,output empty row,after row={\toprule \multicolumn{5}{l}{}\\\multicolumn{5}{l}{}}},columns/X1/.style={string type}]{opinionn2.dat}%
+\end{table}
+\end{frame} 
+
+%\begin{frame}[allowframebreaks]
+%\hypertarget{f2}{}
+%\AddToShipoutPictureFG*{%
+%	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			%			\hyperlink{1}{\beamerskipbutton{}}
+%			\hyperlink{resultados}{\beamergotobutton{}}
+%			\hyperlink{rr}{\beamerreturnbutton{}}
+%	}}
+%}
+%En la Tabla \ref{rr3} se observa, que la \MakeTextLowercase{\dimi}
+%es comprendida por los estudiantes en un \Sexpr{round(opinion2$X3[1],2)}\% excelente, \Sexpr{round(opinion2$X3[2],2)}\% bueno,
+%\Sexpr{round(opinion2$X3[3],2)}\% regular, y \Sexpr{round(opinion2$X3[4],2)}\% malo. Por lo tanto, la \MakeTextLowercase{\dimi}
+%es comprendida frecuentemente por los estudiantes, es decir, \MakeTextLowercase{\gb},
+%\MakeTextLowercase{\gbb}, \MakeTextLowercase{\gbbb}, \MakeTextLowercase{\gbbbb},
+%y \MakeTextLowercase{\gbbbbb}.
+%
+%En la Tabla \ref{rr3} se observa, que la \MakeTextLowercase{\dimii}
+%es practicada por los estudiantes en un \Sexpr{round(opinion2$X5[1],2)}\% excelente, \Sexpr{round(opinion2$X5[2],2)}\% bueno,
+%\Sexpr{round(opinion2$X5[3],2)}\% regular, y \Sexpr{round(opinion2$X5[4],2)}\% malo. Por lo tanto, la \MakeTextLowercase{\dimii}
+%es comprendida frecuentemente por los estudiantes; es decir, \MakeTextLowercase{\gbbbbbb},
+%\MakeTextLowercase{\gbbbbbbb}, \MakeTextLowercase{\gbbbbbbbb},
+%\MakeTextLowercase{\gbbbbbbbbb}, y \MakeTextLowercase{\gbbbbbbbbbb}.
+%
+%En la Tabla \ref{rr3} se observa, que la \MakeTextLowercase{\variablei},
+%es comprendida por los estudiantes en un \Sexpr{round(opinion2$X7[1],2)}\% excelente, \Sexpr{round(opinion2$X7[2],2)}\% bueno,
+%\Sexpr{round(opinion2$X7[3],2)}\% regular, y \Sexpr{round(opinion2$X7[4],2)}\% malo. Lo que implica que la \MakeTextLowercase{\variablei},
+%es practicada frecuentemente por los estudiantes, es decir practican
+%indistintamente la, \MakeTextLowercase{\dimi} y \MakeTextLowercase{\dimii}.
+%
+%\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{{Variable dependiente}}
+
+%\subsubsection{Resultado descriptivo de la mejora en la variedad}
+\begin{frame}{Resultado descriptivo de la mejora en la variedad}
+\hypertarget{dependiente}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz1}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo de la \MakeTextLowercase{\dimd}, tenía un promedio
+de $\overline{x}\pm s=\Sexpr{round(mean(w1$TRADICIONAL),3)}\pm \Sexpr{round(sd(w1$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w1$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo de la \MakeTextLowercase{\variablei}
+(experimental), el desarrollo de la \MakeTextLowercase{\dimd}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w1$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w1$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w1$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo de la \MakeTextLowercase{\dimd}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w1$EXPERIMENTAL),3)}-\Sexpr{round(mean(w1$TRADICIONAL),3)}=\Sexpr{round(mean(w1$EXPERIMENTAL)-mean(w1$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w1$EXPERIMENTAL),3)}-\Sexpr{round(median(w1$TRADICIONAL),3)}=\Sexpr{round(median(w1$EXPERIMENTAL)-median(w1$TRADICIONAL),3)}$
+respectivamente. Por lo tanto se prueba que, \MakeTextLowercase{\hipotesise}.
+Refiérase a la Tabla \ref{reff-1}
+
+Es decir, con la aplicación de la \MakeTextLowercase{\variablei}
+se ha logrado significativamente desarrollar la \MakeTextLowercase{\dimd}.
+Por lo tanto el estudiante \MakeTextLowercase{\fb}; \MakeTextLowercase{\fbb}
+y \MakeTextLowercase{\fbbb}.
+
+\end{frame}
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo1 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(34:49),colNames=TRUE)
+write.table(descriptivo1, "descriptivoo1.dat", quote=F, sep=" ", row.names=FALSE)
+@
+\begin{frame}\footnotesize
+\hypertarget{zz1}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz2}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en la \MakeTextLowercase{\dimd}}%
+			\label{reff-1}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\multicolumn{3}{r}{{Continua en la próxima página}} \\
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo1.dat}
+\end{frame}
+
+
+
+
+
+
+
+
+%\subsubsection{Resultado descriptivo de la mejora en la unidad}
+\begin{frame}{Resultado descriptivo de la mejora en la unidad}
+\hypertarget{zz2}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz3}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo de la \MakeTextLowercase{\dimdd}, tenía un promedio
+de $\overline{x}\pm s=\Sexpr{round(mean(w2$TRADICIONAL),3)}\pm \Sexpr{round(sd(w2$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w2$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo de la \MakeTextLowercase{\variablei}
+(experimental), el desarrollo de la \MakeTextLowercase{\dimdd}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w2$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w2$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w2$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo de la \MakeTextLowercase{\dimdd}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w2$EXPERIMENTAL),3)}-\Sexpr{round(mean(w2$TRADICIONAL),3)}=\Sexpr{round(mean(w2$EXPERIMENTAL)-mean(w2$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w2$EXPERIMENTAL),3)}-\Sexpr{round(median(w2$TRADICIONAL),3)}=\Sexpr{round(median(w2$EXPERIMENTAL)-median(w2$TRADICIONAL),3)}$
+respectivamente. Por lo tanto se verifica la hipótesis que indica
+que \MakeTextLowercase{\hipotesisee}. Refiérase a la Tabla \ref{reff-2}
+
+Es decir, con la aplicación de la \MakeTextLowercase{\variablei}
+se ha logrado significativamente desarrollar la \MakeTextLowercase{\dimdd}.
+Por lo tanto el estudiante \MakeTextLowercase{\fbbbb}; \MakeTextLowercase{\fbbbbb} y
+\MakeTextLowercase{\fbbbbbb}. 
+
+\end{frame}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo2 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(51:66),colNames=TRUE)
+write.table(descriptivo2, "descriptivoo2.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+\begin{frame}\footnotesize
+\hypertarget{zz3}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz4}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en la \MakeTextLowercase{\dimdd}}%
+			\label{reff-2}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo2.dat}
+\end{frame}
+
+
+%\subsubsection{Resultado descriptivo del desarrollo en el ritmo}
+\begin{frame}{Resultado descriptivo del desarrollo en el ritmo}
+\hypertarget{zz4}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz5}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo del \MakeTextLowercase{\dimddd}, tenía un promedio
+de $\overline{x}\pm s=\Sexpr{round(mean(w3$TRADICIONAL),3)}\pm \Sexpr{round(sd(w3$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w3$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo de la \MakeTextLowercase{\variablei}
+(experimental), el desarrollo del \MakeTextLowercase{\dimddd}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w3$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w3$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w3$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo del \MakeTextLowercase{\dimddd}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w3$EXPERIMENTAL),3)}-\Sexpr{round(mean(w3$TRADICIONAL),3)}=\Sexpr{round(mean(w3$EXPERIMENTAL)-mean(w3$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w3$EXPERIMENTAL),3)}-\Sexpr{round(median(w3$TRADICIONAL),3)}=\Sexpr{round(median(w3$EXPERIMENTAL)-median(w3$TRADICIONAL),3)}$
+respectivamente. Por lo tanto se prueba que, \MakeTextLowercase{\hipotesiseee}.
+Refiérase a la Tabla \ref{reff-3}
+
+Es decir, con la aplicación de la \MakeTextLowercase{\variablei}
+se ha logrado significativamente desarrollar el \MakeTextLowercase{\dimddd}.
+Por lo tanto el estudiante \MakeTextLowercase{\fbbbbbbb}; \MakeTextLowercase{\fbbbbbbbb};
+\MakeTextLowercase{\fbbbbbbbbb} y \MakeTextLowercase{\fbbbbbbbbbb}.
+\end{frame}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo3 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(68:83),colNames=TRUE)
+write.table(descriptivo3, "descriptivoo3.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+\begin{frame}\footnotesize
+\hypertarget{zz5}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz6}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en el \MakeTextLowercase{\dimddd}}%
+			\label{reff-3}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo3.dat}
+\end{frame}
+
+
+
+% \subsubsection{Resultado descriptivo del desarrollo en el equilibrio}
+\begin{frame}{Resultado descriptivo del desarrollo en el equilibrio}
+\hypertarget{zz6}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz7}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo del \MakeTextLowercase{\dimdddd}, tenía un promedio
+de $\overline{x}\pm s=\Sexpr{round(mean(w4$TRADICIONAL),3)}\pm \Sexpr{round(sd(w4$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w4$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo del \MakeTextLowercase{\variablei}
+(experimental), el desarrollo del \MakeTextLowercase{\dimdddd}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w4$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w4$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w4$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo del  \MakeTextLowercase{\dimdddd}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w4$EXPERIMENTAL),3)}-\Sexpr{round(mean(w4$TRADICIONAL),3)}=\Sexpr{round(mean(w4$EXPERIMENTAL)-mean(w4$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w4$EXPERIMENTAL),3)}-\Sexpr{round(median(w4$TRADICIONAL),3)}=\Sexpr{round(median(w4$EXPERIMENTAL)-median(w4$TRADICIONAL),3)}$ respectivamente. Por
+lo tanto se comprueba indudablemente que, \MakeTextLowercase{\hipotesiseeee}. Refiérase
+a la Tabla \ref{reff-4}
+
+Es decir, con la aplicación de la \MakeTextLowercase{\variablei}
+se ha logrado significativamente desarrollar el \MakeTextLowercase{\dimdddd}.
+Por lo tanto el estudiante \MakeTextLowercase{\fbbbbbbbbbbb};
+\MakeTextLowercase{\fbbbbbbbbbbbb} y \MakeTextLowercase{\fbbbbbbbbbbbbb}.
+\end{frame}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo4 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(85:100),colNames=TRUE)
+write.table(descriptivo4, "descriptivoo4.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+\begin{frame}\footnotesize
+\hypertarget{zz7}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz8}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en el \MakeTextLowercase{\dimdddd}}%
+			\label{reff-4}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{ries Table \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo4.dat}
+\end{frame}
+
+
+
+%\subsubsection{Resultado descriptivo del desarrollo en el énfasis}
+\begin{frame}{Resultado descriptivo del desarrollo en el énfasis}
+\hypertarget{zz8}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz9}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo del \MakeTextLowercase{\dimddddd}, tenía un promedio
+$\overline{x}\pm s=\Sexpr{round(mean(w5$TRADICIONAL),3)}\pm \Sexpr{round(sd(w5$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w5$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo de la \MakeTextLowercase{\variablei}
+(experimental), el desarrollo del \MakeTextLowercase{\dimddddd}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w5$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w5$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w5$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo del \MakeTextLowercase{\dimddddd}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w5$EXPERIMENTAL),3)}-\Sexpr{round(mean(w5$TRADICIONAL),3)}=\Sexpr{round(mean(w5$EXPERIMENTAL)-mean(w5$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w5$EXPERIMENTAL),3)}-\Sexpr{round(median(w5$TRADICIONAL),3)}=\Sexpr{round(median(w5$EXPERIMENTAL)-median(w5$TRADICIONAL),3)}$ respectivamente. Por lo tanto
+se prueba que, \MakeTextLowercase{\hipotesiseeeee}. Refiérase a la
+Tabla \ref{reff-5}. 
+
+Es decir, con la aplicación de la \MakeTextLowercase{\variablei}
+se ha logrado significativamente desarrollar el \MakeTextLowercase{\dimddddd}.
+Por lo tanto el estudiante \MakeTextLowercase{\fbbbbbbbbbbbbbb};
+\MakeTextLowercase{\fbbbbbbbbbbbbbbb} y  \MakeTextLowercase{\fbbbbbbbbbbbbbbbb}.
+\end{frame}
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo5 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(102:117),colNames=TRUE)
+write.table(descriptivo5, "descriptivoo5.dat", quote=F, sep=" ", row.names=FALSE)
+@
+\vspace{0.2cm}
+\begin{frame}\footnotesize
+\hypertarget{zz9}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz10}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\hypertarget{ff2}{}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en el \MakeTextLowercase{\dimddddd}}%
+			\label{reff-5}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo5.dat}
+\end{frame}
+ 
+%\subsubsection{Resultado descriptivo de la composición plástica tridimensional}
+\begin{frame}{Resultado descriptivo de la CPT}
+\hypertarget{zz10}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zz11}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Sin el empleo de la \MakeTextLowercase{\variablei} (tradicional),
+el desarrollo de la \MakeTextLowercase{\variablei}, tenía un promedio
+de $\overline{x}\pm s=\Sexpr{round(mean(w6$TRADICIONAL),3)}\pm \Sexpr{round(sd(w6$TRADICIONAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w6$TRADICIONAL),3)}$
+puntos (bajo). Con el empleo de la \MakeTextLowercase{\variablei}
+(experimental), el desarrollo de la \MakeTextLowercase{\variabled}, tuvo
+un promedio $\overline{x}\pm s=\Sexpr{round(mean(w6$EXPERIMENTAL),3)}\pm \Sexpr{round(sd(w6$EXPERIMENTAL),3)}$ puntos, con una mediana de $\text{Me}=\Sexpr{round(median(w6$EXPERIMENTAL),3)}$
+puntos (alto). Relacionando los promedios y las medianas, se observa
+un incremento en el desarrollo de la \MakeTextLowercase{\variablei}, en
+$\Delta\overline{x}=\Sexpr{round(mean(w6$EXPERIMENTAL),3)}-\Sexpr{round(mean(w6$TRADICIONAL),3)}=\Sexpr{round(mean(w6$EXPERIMENTAL)-mean(w6$TRADICIONAL),3)}$ puntos y en $\Delta\text{Me}=\Sexpr{round(median(w6$EXPERIMENTAL),3)}-\Sexpr{round(median(w6$TRADICIONAL),3)}=\Sexpr{round(median(w6$EXPERIMENTAL)-median(w6$TRADICIONAL),3)}$ respectivamente. Por
+lo tanto se prueba que, \MakeTextLowercase{\hipotesis}. 
+
+Demostrándose que la geometría fractal influye en desarrollo de la composición
+plástica tridimensional. Refiérase a la Tabla \ref{reff-6}.
+\end{frame}
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+descriptivo6 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(26:28),
+rows=c(119:134),colNames=TRUE)
+write.table(descriptivo6, "descriptivoo6.dat", quote=F, sep=" ", row.names=FALSE)
+@
+\begin{frame}\footnotesize
+\hypertarget{zz11}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%			\hyperlink{zz11}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[
+empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Descripcion del desarrollo en la \MakeTextLowercase{\variabled}}%
+			\label{reff-6}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+columns/E/.style={string type},columns/Tradicional/.style={precision=3,fixed zerofill,fixed},columns/Experimental/.style={precision=3,fixed zerofill,fixed}
+]{descriptivoo6.dat}
+\end{frame}
+
+
+
+
+
+
+\subsection{{Inferencial}}
+
+<<echo=F>>=
+library(reshape)
+write.table(w1, "data1.dat", quote=F, sep=" ", row.names=F)
+write.table(w2, "data2.dat", quote=F, sep=" ", row.names=F)
+write.table(w3, "data3.dat", quote=F, sep=" ", row.names=F)
+write.table(w4, "data4.dat", quote=F, sep=" ", row.names=F)
+write.table(w5, "data5.dat", quote=F, sep=" ", row.names=F)
+@
+
+
+%\subsection{{Prueba de la primera hipótesis}}
+
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group1 = as.factor(c(rep(1, length(w1$TRADICIONAL)), rep(2, length(w1$EXPERIMENTAL)))) 
+z1 = c(w1$TRADICIONAL, w1$EXPERIMENTAL)
+ntt1<-leveneTest(z1, group1)
+nt1<-shapiro.test(w1$TRADICIONAL)
+ne1<-shapiro.test(w1$EXPERIMENTAL)
+@
+
+%str(ntt1)
+\begin{frame}{{Prueba de la primera hipótesis}}
+\hypertarget{inferencial}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz1}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Levene de homogeneidad de varianzas: Estadístico
+$F=\Sexpr{round(ntt1$F[1],3)}$
+con $\rho=\Sexpr{round(ntt1$Pr[1],3)}$. Shapiro -- Wilks es
+$W=\Sexpr{round(nt1$statistic,2)}$ con $\rho=\Sexpr{round(nt1$p.value,2)}$ (tradicional) y $W=\Sexpr{round(ne1$statistic,2)}$ con $\rho=\Sexpr{round(ne1$p.value,2)}$ (experimental).
+
+
+$H_1$: \hipotesise
+
+$\sim H_1= H_0$: \hipotesisen%https://calculadorasonline.com/calculadora-notacion-cientifica-convertidor-operaciones/
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+options(digits = 2)
+library(reshape)
+inf1 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(34:49),colNames=TRUE)
+write.table(inf1, "inff1.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf1$Y[11]}}>1.96$), lo que indica rechazar
+la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}. Es
+decir el estudiante \MakeTextLowercase{\fb}, \MakeTextLowercase{\fbb}
+y \MakeTextLowercase{\fbbb}.
+
+\end{frame}
+\begin{frame}\footnotesize
+\hypertarget{zzz1}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz2}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student primera hipótesis}%
+			\label{hipotesis1}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff1.dat}
+\end{frame}
+
+
+
+
+%\subsection{Prueba de la segunda hipótesis}
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group2 = as.factor(c(rep(1, length(w2$TRADICIONAL)), rep(2, length(w2$EXPERIMENTAL)))) 
+z2 = c(w2$TRADICIONAL, w2$EXPERIMENTAL)
+ntt2<-leveneTest(z2, group2)
+nt2<-shapiro.test(w2$TRADICIONAL)
+ne2<-shapiro.test(w2$EXPERIMENTAL)
+@
+\begin{frame}{Prueba de la segunda hipótesis}
+\hypertarget{zzz2}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz3}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+El estadístico de Levene de homogeneidad de varianzas es
+$F=\Sexpr{round(ntt2$F[1],3)}$
+con $\rho=\Sexpr{round(ntt2$Pr[1],3)}$ Shapiro -- Wilks es
+$W=\Sexpr{round(nt2$statistic,3)}$ con $\rho=\Sexpr{round(nt2$p.value,3)}$ (tradicional) y $W=\Sexpr{round(ne2$statistic,3)}$ con $\rho=\Sexpr{round(ne2$p.value,3)}$ (experimental).
+
+$H_1$: \hipotesisee
+
+$\sim H_1= H_0$: \hipotesiseen
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+inf2 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(51:66),colNames=TRUE)
+write.table(inf2, "inff2.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf2$Y[11]}}>1.96$), lo que indica rechazar
+la hipótesis nula y aceptar la hipótesis alterna, por lo tanto
+\MakeTextLowercase{\hipotesisee}. Es decir el estudiante  \MakeTextLowercase{\fbbbb},
+\MakeTextLowercase{\fbbbbb} y \MakeTextLowercase{\fbbbbbb}.
+
+\end{frame}
+
+
+\begin{frame}\footnotesize
+\hypertarget{zzz3}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz4}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student segunda hipótesis}%
+			\label{hipotesis2}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff2.dat}
+\end{frame}
+ 
+
+
+
+
+
+%\subsection{{Prueba de la tercera hipótesis}}
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group3 = as.factor(c(rep(1, length(w3$TRADICIONAL)), rep(2, length(w3$EXPERIMENTAL)))) 
+z3 = c(w3$TRADICIONAL, w3$EXPERIMENTAL)
+ntt3<-leveneTest(z3, group3)
+nt3<-shapiro.test(w3$TRADICIONAL)
+ne3<-shapiro.test(w3$EXPERIMENTAL)
+@
+\begin{frame}[allowframebreaks]{Prueba de la tercera hipótesis}
+\hypertarget{zzz4}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz5}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+El valor del estadístico de Levene de homogeneidad de varianzas es
+$F=\Sexpr{round(ntt3$F[1],3)}$
+con $\rho=\Sexpr{round(ntt3$Pr[1],3)}$. Shapiro -- Wilks es
+$W=\Sexpr{round(nt3$statistic,3)}$ con $\rho=\Sexpr{round(nt3$p.value,3)}$ (tradicional) y $W=\Sexpr{round(ne3$statistic,3)}$ con $\rho=\Sexpr{round(ne3$p.value,3)}$ (experimental).
+
+
+
+$H_1$: \hipotesiseee. $\sim H_1= H_0$.
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+inf3 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(68:83),colNames=TRUE)
+write.table(inf3, "inff3.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf3$Y[11]}}>1.96$), lo que indica rechazar
+la hipótesis nula y aceptar la hipótesis alterna, entonces
+\MakeTextLowercase{\hipotesiseee}. Es decir el estudiante  \MakeTextLowercase{\fbbbbbbb},
+\MakeTextLowercase{\fbbbbbbbb}, \MakeTextLowercase{\fbbbbbbbbb}
+y \MakeTextLowercase{\fbbbbbbbbbb}.
+\end{frame}
+
+
+\begin{frame}\footnotesize
+
+\hypertarget{zzz5}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz6}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student tercera hipótesis}%
+			\label{hipotesis3}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff3.dat}
+\end{frame} 
+
+
+
+
+%\subsection{{Prueba de la cuarta hipótesis}}
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group4 = as.factor(c(rep(1, length(w4$TRADICIONAL)), rep(2, length(w4$EXPERIMENTAL)))) 
+z4 = c(w4$TRADICIONAL, w4$EXPERIMENTAL)
+ntt4<-leveneTest(z4, group4)
+nt4<-shapiro.test(w4$TRADICIONAL)
+ne4<-shapiro.test(w4$EXPERIMENTAL)
+@
+\begin{frame}[allowframebreaks]{Prueba de la cuarta hipótesis}
+\hypertarget{zzz6}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz7}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+El valor del estadístico de Levene de homogeneidad de varianzas es
+$F=\Sexpr{round(ntt4$F[1],3)}$
+con $\rho=\Sexpr{round(ntt4$Pr[1],3)}$. Shapiro -- Wilks es
+$W=\Sexpr{round(nt4$statistic,3)}$ con $\rho=\Sexpr{round(nt4$p.value,3)}$ (tradicional) y $W=\Sexpr{round(ne4$statistic,3)}$ con $\rho=\Sexpr{round(ne4$p.value,3)}$ (experimental).
+
+
+$H_1$: \hipotesiseeee. $\sim H_1= H_0$
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+inf4 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(85:100),colNames=TRUE)
+write.table(inf4, "inff4.dat", quote=F, sep=" ", row.names=FALSE)
+@
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf4$Y[11]}}>1.96$ ), lo que indica rechazar
+la hipótesis nula y aceptar la hipótesis alterna, por lo tanto
+\MakeTextLowercase{\hipotesiseeee}. Es decir el estudiante  \MakeTextLowercase{\fbbbbbbbbbbb},
+\MakeTextLowercase{\fbbbbbbbbbbbb} y \MakeTextLowercase{\fbbbbbbbbbbbbb}.
+
+\end{frame}
+
+
+\begin{frame}\footnotesize
+\hypertarget{zzz7}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz8}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student cuarta hipótesis}%
+			\label{hipotesis4}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff4.dat}
+\end{frame}
+
+
+
+
+%\subsection{Prueba de la quinta hipótesis}
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group5 = as.factor(c(rep(1, length(w5$TRADICIONAL)), rep(2, length(w5$EXPERIMENTAL)))) 
+z5 = c(w5$TRADICIONAL, w5$EXPERIMENTAL)
+ntt5<-leveneTest(z5, group5)
+nt5<-shapiro.test(w6$TRADICIONAL)
+ne5<-shapiro.test(w6$EXPERIMENTAL)
+@
+\begin{frame}[allowframebreaks]{Prueba de la quinta hipótesis}
+\hypertarget{zzz8}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz9}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+El valor del estadístico de Levene de homogeneidad de varianzas es
+$F=\Sexpr{round(ntt5$F[1],3)}$
+con $\rho=\Sexpr{round(ntt5$Pr,3)}$. Shapiro -- Wilks es
+$W=\Sexpr{round(nt5$statistic,3)}$ con $\rho=\Sexpr{round(nt5$p.value,3)}$ (tradicional) y $W=\Sexpr{round(ne5$statistic,3)}$ con $\rho=\Sexpr{round(ne5$p.value,3)}$ (experimental).
+
+
+$H_1$: \hipotesiseeeee. $\sim H_1= H_0$
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+inf5 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(102:117),colNames=TRUE)
+write.table(inf5, "inff5.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf5$Y[11]}}>1.96$), lo que indica rechazar
+la hipótesis nula y aceptar la hipótesis alterna, por lo tanto
+\MakeTextLowercase{\hipotesiseeeee}. Es decir el estudiante  \MakeTextLowercase{\fbbbbbbbbbbbbbb},
+\MakeTextLowercase{\fbbbbbbbbbbbbbbb} y \MakeTextLowercase{\fbbbbbbbbbbbbbbbb}.
+\end{frame}
+\begin{frame}\footnotesize
+\hypertarget{zzz9}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz10}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student quinta hipótesis}%
+			\label{hipotesis5}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff5.dat} 
+\vspace{-0.5cm}
+\end{frame}
+
+
+%\subsection{{Prueba de la hipótesis general}}
+
+
+<<echo=F,message=FALSE>>=
+library(reshape2)
+library(car)
+group6 = as.factor(c(rep(1, length(w6$TRADICIONAL)), rep(2, length(w6$EXPERIMENTAL)))) 
+z6 = c(w6$TRADICIONAL, w6$EXPERIMENTAL)
+ntt6<-leveneTest(z6, group6)
+nt6<-shapiro.test(w6$TRADICIONAL)
+ne6<-shapiro.test(w6$EXPERIMENTAL)
+@
+\begin{frame}[allowframebreaks]{{Prueba de la hipótesis general}}
+%str(ntt1)
+\hypertarget{zzz10}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{zzz11}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+Levene: $F=\Sexpr{round(ntt6$F[1],3)}$
+con $\rho=\Sexpr{round(ntt6$Pr[1],3)}$. Shapiro -- Wilks es
+$W=\Sexpr{round(nt6$statistic,3)}$ con $\rho=\Sexpr{round(nt6$p.value,3)}$ (tradicional) y $W=\Sexpr{round(ne6$statistic,3)}$ con $\rho=\Sexpr{round(ne6$p.value,3)}$ (experimental).
+
+$H_1$: \hipotesis. $\sim H_1= H_0$%: \hipotesisn
+
+<<echo=F,message=FALSE>>=
+library(openxlsx)
+library(reshape)
+inf6 <-read.xlsx(xlsxFile="levene.xlsx",sheet=9,cols=c(31:33),
+rows=c(119:133),colNames=TRUE)
+write.table(inf6, "inff6.dat", quote=F, sep=" ", row.names=FALSE)
+@
+
+
+
+
+Con un nivel de confianza del $95\%$, se observa que el valor calculado
+es mayor que el asumido ($\abs{\Sexpr{inf6$Y[11]}}>1.96$), lo que indica rechazar la hipótesis nula y aceptar la hipótesis alterna,
+entonces, \MakeTextLowercase{\hipotesis}. Es decir el estudiante 
+desarrolla la capacidad de aplicar la \MakeTextLowercase{\dimd},
+la \MakeTextLowercase{\dimdd}, el \MakeTextLowercase{\dimddd},
+el \MakeTextLowercase{\dimdddd} y el \MakeTextLowercase{\dimdddd}
+correctamente en la composición plástica tridimensional.
+
+\end{frame}
+\begin{frame}\footnotesize
+\hypertarget{zzz11}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%				\hyperlink{zzz5}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\renewcommand\arraystretch{.98}
+\pgfplotstabletypeset[empty header,
+begin table=\begin{longtable},
+	every first row/.append style={before row={%
+			\caption{Resumen T-student hipótesis general}%
+			\label{hipotesis6}\\\toprule
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule    
+			\endfirsthead
+			\multicolumn{3}{c}
+			{{\tablename\ \thetable\ Continua de la página previa}} \\
+			\toprule 
+			Estadigrafos & Tradicional\textsuperscript{a}&Experimental\textsuperscript{b} \\ \midrule  
+			\endhead
+			\midrule \multicolumn{3}{r}{{Continua en la próxima página}} \\ \bottomrule
+			\endfoot
+			\bottomrule
+			\multicolumn{3}{l}{\footnotesize  \textsuperscript{a}Fuente: Apéndice \ref{datos} Tabla \ref{primary}} \\
+			\multicolumn{3}{l}{\footnotesize\textsuperscript{b}Fuente: Apéndice \ref{datos} Tabla \ref{secondary}}\\ 
+			\endlastfoot 
+	}},
+	end table=\end{longtable},
+empty header,
+columns/X/.style={string type},
+columns/Y/.style={precision=3,fixed zerofill,fixed},
+columns/Z/.style={precision=3,fixed zerofill,fixed}
+]{inff6.dat}
+\end{frame}
+
+    
+\subsection{Discusión de resultados}
+\hypertarget{discuciones}{}
+\begin{frame}{Discusion de resultados}
+\begin{itemize}
+	\item {\textbf{Discusión de la primera hipótesis}}: Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf1$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}. Es
+	decir el estudiante \MakeTextLowercase{\fb}, \MakeTextLowercase{\fbb}
+	y \MakeTextLowercase{\fbbb}.
+	\item {\textbf{Discusión de la segunda hipótesis}}: Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf2$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}.
+	Es decir el estudiante   \MakeTextLowercase{\fbbbb}, \MakeTextLowercase{\fbbbbb}
+	y \MakeTextLowercase{\fbbbbbb}.
+	
+\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{uu}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\hypertarget{uu}{}
+\begin{frame}{Discusion de resultados}
+\begin{itemize}	
+	\item {\textbf{Discusión de la tercera hipótesis}}: Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf3$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}.
+	Es decir el estudiante   \MakeTextLowercase{\fbbbbbbb}, \MakeTextLowercase{\fbbbbbbbb},
+	\MakeTextLowercase{\fbbbbbbbbb} y \MakeTextLowercase{\fbbbbbbbbbb}.
+	
+		\item {\textbf{Discusión de la cuarta hipótesis}}: Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf4$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}.
+	Es decir el estudiante    \MakeTextLowercase{\fbbbbbbbbbbb}, \MakeTextLowercase{\fbbbbbbbbbbbb}
+	y \MakeTextLowercase{\fbbbbbbbbbbbbb}.
+\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			\hyperlink{uuu}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\subsection{Discusión de resultados}
+\hypertarget{uuu}{}
+\begin{frame}
+\begin{itemize}
+	\item {\textbf{Discusión de la quinta hipótesis}}: 
+	Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf5$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesise}.
+	Es decir el estudiante \MakeTextLowercase{\fbbbbbbbbbbbbbb}, \MakeTextLowercase{\fbbbbbbbbbbbbbbb}
+	y \MakeTextLowercase{\fbbbbbbbbbbbbbbbb}.
+	 	
+	\item {\textbf{Discusión de la hipótesis general}}: Con un nivel de confianza del $95\%$, se observa que el valor calculado
+	es mayor que el asumido ($\abs{\Sexpr{inf6$Y[11]}}>1.96$), lo que indica rechazar
+	la hipótesis nula y aceptar la hipótesis alterna, entonces, \MakeTextLowercase{\hipotesis}.
+	Es decir el estudiante desa\-rro\-lla la capacidad de aplicar la \MakeTextLowercase{\dimd},
+	la \MakeTextLowercase{\dimdd}, el \MakeTextLowercase{\dimddd},
+	el \MakeTextLowercase{\dimdddd} y el \MakeTextLowercase{\dimdddd}
+	correctamente en la composición plástica tridimensional.
+\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{concluciones}{\beamerskipbutton{}}
+			\hyperlink{resultados}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{}
+\hyperlink{concluciones1}{\beamergotobutton{Secci\'on 1: Concluciones}}
+\hypertarget{concluciones}{}
+
+\hyperlink{concluciones2}{\beamergotobutton{Secci\'on 2: Recomendaciones}}
+
+\hyperlink{bibliografia}{\beamergotobutton{Bibliografía}}
+
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%			\hyperlink{1}{\beamerskipbutton{}}
+			%			\hyperlink{marcoteorico}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+
+
+\section{Conclusiones}
+\hypertarget{concluciones1}{}
+\begin{frame}[allowframebreaks]{Conclusiones}
+\begin{enumerate}
+\item \hipotesise
+\item \hipotesisee
+\item \hipotesiseee
+\item \hipotesiseeee
+\item \hipotesiseeeee
+\item \hipotesis 
+\end{enumerate}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+%	\hyperlink{bibliografia}{\beamerskipbutton{}}
+	\hyperlink{concluciones}{\beamergotobutton{}}
+	\hyperlink{rr}{\beamerreturnbutton{}}
+}}
+}
+\end{frame}
+
+%\section{Conclusiones}
+\hypertarget{concluciones2}{}
+\begin{frame}{Recomendaciones}
+
+De acuerdo a los resultados de la investigación me permito recomendar:
+% y a la necesidad de colaborar, con estrategias didácticas en la enseñanza de la composición plástica tridimensional en el campo educativo, me permito recomendar: 
+\begin{itemize}
+	\item A las autoridades universitarias a fin de implementar en la reglamentación
+	de los términos de referencia, sobre la \MakeTextLowercase{\variablei}
+	para contribuir a la solución de los problemas de la enseñanza y aprendizaje,
+	en la comunidad universitaria.
+	\item A las autoridades de la facultad de ingeniería minas, geología y civil
+	UNSCH y sus correspondientes escuelas profesionales, a
+	fin de implementar en los planes curriculares, nuevas asignaturas
+	que permitan orientar la formación profesional de los estudiantes,
+	que involucren el desarrollo de los siguientes principios de la composición
+	plástica tridimensional: \MakeTextLowercase{\dimd}, \MakeTextLowercase{\dimdd},
+	\MakeTextLowercase{\dimddd} y \MakeTextLowercase{\dimdddd}; para
+	coadyuvar en la solución de los problemas compositivos, en la comunidad
+	local, regional y nacional. 
+	\AddToShipoutPictureFG*{%
+		\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+				\hyperlink{recomendacion1}{\beamerskipbutton{}}
+				\hyperlink{concluciones}{\beamergotobutton{}}
+				\hyperlink{rr}{\beamerreturnbutton{}}
+		}}
+	}
+\end{itemize}
+\end{frame}
+\begin{frame}	
+\begin{itemize}
+	\hypertarget{recomendacion1}{}
+	\item A los docentes y estudiantes de la \lugar, a fin de poner en práctica
+	la \MakeTextLowercase{\variablei}.
+\end{itemize}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%	\hyperlink{bibliografia}{\beamerskipbutton{}}
+			\hyperlink{concluciones}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+\end{frame}
+\hypertarget{bibliografia}{}
+%\section{Referencias bibliográficas}
+\begin{frame}[allowframebreaks]{Bibliogafía}
+\hypertarget{bibliografia}{}
+\AddToShipoutPictureFG*{%
+	\AtTextLowerRight{\hspace*{-.9in}\raisebox{-0.1\baselineskip}{
+			%	\hyperlink{bibliografia}{\beamerskipbutton{}}
+			\hyperlink{concluciones}{\beamergotobutton{}}
+			\hyperlink{rr}{\beamerreturnbutton{}}
+	}}
+}
+%\renewcommand{\bibname}{REFERENCIAS BIBLIOGRÁFICAS}
+\bibliographystyle{apacite}
+\bibliography{une}
+\end{frame}
+\end{document}
